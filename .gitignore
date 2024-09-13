@@ -1,0 +1,26 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/metaperson-unity-photon-sample
+/Assets/Photon
+/Assets/Photon.meta
+/Library
+/Logs
+/obj/Debug
+/Temp
+/UserSettings
+/PunDemos.DemoSlotcarEditor.csproj
+/PunDemos.DemoHubEditor.csproj
+/PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.csproj
+/PhotonUnityNetworking.Utilities.Culling.Editor.csproj
+/PhotonUnityNetworking.Utilities.csproj
+/PhotonUnityNetworking.Editor.csproj
+/PhotonUnityNetworking.Demos.csproj
+/PhotonUnityNetworking.csproj
+/PhotonRealtime.csproj
+/PhotonChat.csproj
+/metaperson-unity-photon-sample.sln
+/Assembly-CSharp.csproj
+/Assembly-CSharp-Editor.csproj
+/.vsconfig
