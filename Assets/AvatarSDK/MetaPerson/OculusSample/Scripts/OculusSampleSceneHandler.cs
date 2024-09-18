@@ -36,15 +36,16 @@ public class OculusSampleSceneHandler : MonoBehaviour
         await loader.LoadModelAsync(avatarUri, ProgressReport);
         progressText.gameObject.SetActive(false);
 
-        SkinnedMeshRenderer[] meshRenderes = loader.avatarObject.GetComponentsInChildren<SkinnedMeshRenderer>();
-        var headMesh = meshRenderes.FirstOrDefault(loader => loader.name == "AvatarHead");
-        var teethLowerMesh = meshRenderes.FirstOrDefault(loader => loader.name == "AvatarTeethLower");
-
-        headContextMorphTarget.blendshapeScale = teethContextMorphTarget.blendshapeScale = GetMaxBlendshapesValue(loader.avatarObject);
-        headContextMorphTarget.skinnedMeshRenderer = headMesh;
-        teethContextMorphTarget.skinnedMeshRenderer = teethLowerMesh;
         
-        MetaPersonUtils.ReplaceAvatar(loader.avatarObject, existingAvatar);        
+
+        /*headContextMorphTarget.blendshapeScale = teethContextMorphTarget.blendshapeScale = GetMaxBlendshapesValue(loader.avatarObject);
+        headContextMorphTarget.skinnedMeshRenderer = headMesh;
+        teethContextMorphTarget.skinnedMeshRenderer = teethLowerMesh;*/
+
+        AvatarSdkOculusTools.Configure(loader.avatarObject, dstObject);
+
+
+        MetaPersonUtils.ReplaceAvatar(loader.avatarObject, existingAvatar);
     }
     // Update is called once per frame
     void Update()
@@ -52,20 +53,5 @@ public class OculusSampleSceneHandler : MonoBehaviour
         
     }
 
-    private static float GetMaxBlendshapesValue(GameObject gameObject)
-    {
-        SkinnedMeshRenderer[] meshRenderes = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
-        var headMesh = meshRenderes.FirstOrDefault(loader => loader.name == "AvatarHead");
-        if (headMesh == null)
-        {
-            return 100.0f;
-        }
-        int blenshapeIdx = headMesh.sharedMesh.GetBlendShapeIndex("FF");
-        if (blenshapeIdx > -1)
-        {
-            var res = meshRenderes.FirstOrDefault(mr => mr.name == "AvatarHead").sharedMesh.GetBlendShapeFrameWeight(blenshapeIdx, 0);
-            return res;
-        }
-        return 100.0f;
-    }
+
 }

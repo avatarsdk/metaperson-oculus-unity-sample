@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\AvatarSDK\MetaPerson\OculusSample\Scripts\OculusSampleSceneHandler.cs" />
+    <Compile Include="Assets\AvatarSDK\MetaPerson\OculusSample\Scripts\AvatarSdkOculusTools.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
