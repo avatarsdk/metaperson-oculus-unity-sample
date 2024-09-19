@@ -32,11 +32,11 @@ There is a predefined avatar on the scene that is animated with Oculus LipSync w
 
 To configure the we simply need to provide the reference to Audio Source.
 
-![Morph Targets 1](./Images/mt1.png)
+![Morph Targets 1](./Images/mt0.png)
 
 For the first instance of the `OVRLipSyncContextMorphTarget` we will provide a reference to the `AvatarHead` skinned mesh renderer. We also need to set the visemes mapping (indices of the skeletal mesh blendshapes that correspond to LipSync visemes). Visemes order is: sil, PP, FF, TH, DD, kk, CH, SS, nn, RR, aa, E, IH, oh, ou. 
 
-![Morph Targets 2](./Images/mt2.png)
+![Morph Targets 2](./Images/mt1.png)
 
 Similar configuration should be done for the second instance of the `OVRLipSyncContextMorphTarget`. Here we provide a reference to the `AvatarTeethLower` skinned mesh renderer and set the corresponding visemes mapping.
 
