@@ -35,15 +35,8 @@ public class OculusSampleSceneHandler : MonoBehaviour
 
         await loader.LoadModelAsync(avatarUri, ProgressReport);
         progressText.gameObject.SetActive(false);
-
         
-
-        /*headContextMorphTarget.blendshapeScale = teethContextMorphTarget.blendshapeScale = GetMaxBlendshapesValue(loader.avatarObject);
-        headContextMorphTarget.skinnedMeshRenderer = headMesh;
-        teethContextMorphTarget.skinnedMeshRenderer = teethLowerMesh;*/
-
         AvatarSdkOculusTools.Configure(loader.avatarObject, dstObject);
-
 
         MetaPersonUtils.ReplaceAvatar(loader.avatarObject, existingAvatar);
     }
