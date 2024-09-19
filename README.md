@@ -40,6 +40,80 @@ For the first instance of the `OVRLipSyncContextMorphTarget` we will provide a r
 
 Similar configuration should be done for the second instance of the `OVRLipSyncContextMorphTarget`. Here we provide a reference to the `AvatarTeethLower` skinned mesh renderer and set the corresponding visemes mapping.
 
+## Runtime configuration
+
+When we change the avatar in the scene to one loaded from the cloud, we perform a runtime lipsync configuration. See the `OnButtonClick` method of the `OculusSampleSceneHandler` class:
+
+```cs
+async void OnButtonClick()
+{
+    button.gameObject.SetActive(false);
+    progressText.gameObject.SetActive(true);
+
+    await loader.LoadModelAsync(avatarUri, ProgressReport);
+    progressText.gameObject.SetActive(false);
+    
+    AvatarSdkOculusTools.Configure(loader.avatarObject, dstObject);
+    MetaPersonUtils.ReplaceAvatar(loader.avatarObject, existingAvatar);
+}
+```
+
+Here we call the `AvatarSdkOculusTools.Configure` method and pass avatar objects to it. The purpose of this method is to configure an avatar object for lip syncing. It checks if the object has an AudioSource component attached to it. If not, it adds a new AudioSource component, sets some properties like loop and playOnAwake, and assigns the audioClip parameter to the clip property. 
+
+```cs
+ var audioComponent = parentObj.GetComponent<AudioSource>();
+ if (audioComponent == null)
+ {
+     audioComponent = parentObj.AddComponent<AudioSource>();
+     audioComponent.loop = true;
+     audioComponent.playOnAwake = true;
+     audioComponent.clip = audioClip;
+     parentObj.AddComponent<AudioSource>();
+ }
+```
+
+Next, it checks if the object has an OVRLipSyncContext component attached to it. If not, it adds a new OVRLipSyncContext component and sets some properties. 
+
+```cs
+var context = parentObj.GetComponent<OVRLipSyncContext>();
+if (context == null)
+{
+    context = parentObj.AddComponent<OVRLipSyncContext>();
+    context.audioSource = audioComponent;
+    context.enableAcceleration = true;
+    context.audioLoopback = true;
+    context.gain = 1.0f;
+}
+```
+
+Then it retrieves an array of OVRLipSyncContextMorphTarget components. If there are no OVRLipSyncContextMorphTarget components found, it adds two new instances of OVRLipSyncContextMorphTarget to the object. It then sets properties like blendshapeScale, and assigns values to the visemeToBlendTargets arrays based on the headBlendshapes and teethBlendshapes arrays defined earlier in the code. These arrays contain indices of blendshapes for Head and Teeth skeletal meshes. They are the same we used for editor-time configuration.
+
+```cs
+ if (contextMorphTargets.Count() == 0)
+ {
+     headMorphTargets = parentObj.AddComponent<OVRLipSyncContextMorphTarget>();
+     teethMorphTargets = parentObj.AddComponent<OVRLipSyncContextMorphTarget>();
+     headMorphTargets.blendshapeScale = teethMorphTargets.blendshapeScale = GetMaxBlendshapesValue(avatarObj);
+     headMorphTargets.skinnedMeshRenderer = headMesh;
+     teethMorphTargets.skinnedMeshRenderer = teethLowerMesh;
+     
+     for(int i = 0; i < teethMorphTargets.visemeToBlendTargets.Count(); i++)
+     {
+         teethMorphTargets.visemeToBlendTargets[i] = teethBlendshapes[i];
+         headMorphTargets.visemeToBlendTargets[i] = headBlendshapes[i];
+     }           
+ }
+```
+
+The important lines here are:
+
+```cs
+ headMorphTargets.skinnedMeshRenderer = headMesh;
+ teethMorphTargets.skinnedMeshRenderer = teethLowerMesh;
+```
+
+We provide references to the corresponding skeletal meshes to our OVRLipSyncContextMorphTarget objects. Now we're ready to go.
+
 ## License
 
 This OVRLipSync plugin is the property of Oculus and is provided under the [Oculus SDK License](https://developer.oculus.com/licenses/audio-3.3/), which allows for personal and commercial use. By using this plugin, you agree to the terms of the Oculus SDK License.
