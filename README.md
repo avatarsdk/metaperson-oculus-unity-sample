@@ -58,7 +58,7 @@ async void OnButtonClick()
 }
 ```
 
-Here we call the `AvatarSdkOculusTools.Configure` method and pass avatar objects to it. The purpose of this method is to configure an avatar object for lip syncing. It checks if the object has an AudioSource component attached to it. If not, it adds a new AudioSource component, sets some properties like loop and playOnAwake, and assigns the audioClip parameter to the clip property. 
+Here we call the `AvatarSdkOculusTools.Configure` method and pass avatar objects to it. The purpose of this method is to configure an avatar object for lip syncing. It checks if the object has an `AudioSource` component attached to it. If not, it adds a new `AudioSource` component, sets some properties like loop and `playOnAwake`, and assigns the `audioClip` parameter to the clip property. 
 
 ```cs
  var audioComponent = parentObj.GetComponent<AudioSource>();
@@ -72,7 +72,7 @@ Here we call the `AvatarSdkOculusTools.Configure` method and pass avatar objects
  }
 ```
 
-Next, it checks if the object has an OVRLipSyncContext component attached to it. If not, it adds a new OVRLipSyncContext component and sets some properties. 
+Next, it checks if the object has an `OVRLipSyncContext` component attached to it. If not, it adds a new `OVRLipSyncContext` component and sets some properties. 
 
 ```cs
 var context = parentObj.GetComponent<OVRLipSyncContext>();
@@ -86,7 +86,7 @@ if (context == null)
 }
 ```
 
-Then it retrieves an array of OVRLipSyncContextMorphTarget components. If there are no OVRLipSyncContextMorphTarget components found, it adds two new instances of OVRLipSyncContextMorphTarget to the object. It then sets properties like blendshapeScale, and assigns values to the visemeToBlendTargets arrays based on the headBlendshapes and teethBlendshapes arrays defined earlier in the code. These arrays contain indices of blendshapes for Head and Teeth skeletal meshes. They are the same we used for editor-time configuration.
+Then it retrieves an array of `OVRLipSyncContextMorphTarget` components. If there are no `OVRLipSyncContextMorphTarget` components found, it adds two new instances of `OVRLipSyncContextMorphTarget` to the object. It then sets properties like `blendshapeScale`, and assigns values to the `visemeToBlendTargets` arrays based on the `headBlendshapes` and `teethBlendshapes` arrays defined earlier in the code. These arrays contain indices of blendshapes for Head and Teeth skeletal meshes. They are the same we used for editor-time configuration.
 
 ```cs
  if (contextMorphTargets.Count() == 0)
@@ -112,7 +112,7 @@ The important lines here are:
  teethMorphTargets.skinnedMeshRenderer = teethLowerMesh;
 ```
 
-We provide references to the corresponding skeletal meshes to our OVRLipSyncContextMorphTarget objects. Now we're ready to go.
+We provide references to the corresponding skeletal meshes to our O`VRLipSyncContextMorphTarget` objects. Now we're ready to go.
 
 ## License
 
