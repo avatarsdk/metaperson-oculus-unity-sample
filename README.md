@@ -1,6 +1,6 @@
-# MetaPerson - Unity Oculus LipSync sample
+# MetaPerson - Unity Oculus Lipsync sample
 
-This sample demonstrates using [MetaPerson](https://metaperson.avatarsdk.com/) avatars in Unity with the [Oculus LipSync](https://developers.meta.com/horizon/downloads/package/oculus-lipsync-unity/) plugin.
+This sample demonstrates using [MetaPerson](https://metaperson.avatarsdk.com/) avatars in Unity with the [Oculus Lipsync](https://developers.meta.com/horizon/downloads/package/oculus-lipsync-unity/) plugin.
 
 ![Sample in Unity](./Images/talking_avatar.png)
 
@@ -14,17 +14,17 @@ This sample demonstrates using [MetaPerson](https://metaperson.avatarsdk.com/) a
 2. Clone this repository to your computer.
 3. Open the project in Unity.
 4. Open the `\Assets\AvatarSDK\MetaPerson\OculusSample\Scenes\MetapersonOculusSampleScene.unity` scene.
-5. Run the project and see how the MetaPerson avatar on the scene is animated with the Oculus LipSync.
+5. Run the project and see how the MetaPerson avatar on the scene is animated with the Oculus Lipsync.
 
 ![Button](./Images/running_demo.png)
 
-6. Click on the `Load another avatar` button and wait for another MetaPerson avatar to be downloaded replacing the original one
+6. Click on the `Load another avatar` button and wait for another MetaPerson avatar to be downloaded, replacing the original one.
 
 ## How does it work
 
 ![Components](./Images/components.png)
 
-There is a predefined avatar on the scene that is animated with Oculus LipSync when you run the project. When you run the application and click the button, another avatar is downloaded. Then it replaces the original one. Audio and facial animation keep playing continuously for the new avatar. The MetaPerson Avatar object placed on the scene contains the predefined MetaPerson avatar and has a number of attached components. `AudioSource` component is responsible for playing audio clip. `OVRLipSyncContext` serves as an interface to the Oculus Lip-Sync engine. This component should be added into the scene once for each Audio Source. `OVRLipSyncContextMorphTarget` bridges the output of the viseme (facial expression) detection system to the morph targets of a skinned mesh renderer. It allows you to control the facial expressions of a character model based on the detected visemes. For MetaPerson avatars we need two `OVRLipSyncContextMorphTarget` components attached: one for avatar head mesh, another one for lower teeth mesh.
+A predefined avatar on the scene is animated with Oculus Lipsync when you run the project. When you run the application and click the button, another avatar is downloaded. Then, it replaces the original one. Audio and facial animation keep playing continuously for the new avatar. The MetaPerson Avatar object placed on the scene contains the predefined MetaPerson avatar and has several attached components. `AudioSource` component is responsible for playing an audio clip. `OVRLipSyncContext` serves as an interface to the Oculus Lipsync engine. This component should be added to the scene once for each Audio Source. `OVRLipSyncContextMorphTarget` bridges the output of the viseme (facial expression) detection system to the morph targets of a skinned mesh renderer. It allows you to control the facial expressions of a character model based on the detected visemes. For MetaPerson avatars, we need two `OVRLipSyncContextMorphTarget` components attached: one for avatar head mesh and another one for lower teeth mesh.
 
 ## Oculus configuration
 
@@ -34,11 +34,11 @@ To configure the `OVRLipSyncContext` we simply need to provide the reference to 
 
 ![Morph Targets 1](./Images/mt0.png)
 
-For the first instance of the `OVRLipSyncContextMorphTarget` we will provide a reference to the `AvatarHead` skinned mesh renderer. We also need to set the visemes mapping (indices of the skeletal mesh blendshapes that correspond to LipSync visemes). Visemes order is: sil, PP, FF, TH, DD, kk, CH, SS, nn, RR, aa, E, IH, oh, ou. 
+For the first instance of the `OVRLipSyncContextMorphTarget` we will reference the `AvatarHead` skinned mesh renderer. We also need to set the visemes mapping (indices of the skeletal mesh blendshapes corresponding to lipsync visemes). Visemes order is: sil, PP, FF, TH, DD, kk, CH, SS, nn, RR, aa, E, IH, oh, ou. 
 
 ![Morph Targets 2](./Images/mt1.png)
 
-Similar configuration should be done for the second instance of the `OVRLipSyncContextMorphTarget`. Here we provide a reference to the `AvatarTeethLower` skinned mesh renderer and set the corresponding visemes mapping.
+A similar configuration should be done for the second instance of the `OVRLipSyncContextMorphTarget`. Here we provide a reference to the `AvatarTeethLower` skinned mesh renderer and set the corresponding visemes mapping.
 
 ## Runtime configuration
 
@@ -58,7 +58,7 @@ async void OnButtonClick()
 }
 ```
 
-Here we call the `AvatarSdkOculusTools.Configure` method and pass avatar objects to it. The purpose of this method is to configure an avatar object for lip syncing. It checks if the object has an `AudioSource` component attached to it. If not, it adds a new `AudioSource` component, sets some properties like loop and `playOnAwake`, and assigns the `audioClip` parameter to the clip property. 
+Here we call the `AvatarSdkOculusTools.Configure` method and pass avatar objects to it. This method configures an avatar object for lip syncing. It checks if the object has an `AudioSource` component attached to it. If not, it adds a new `AudioSource` component, sets some properties like loop and `playOnAwake`, and assigns the `audioClip` parameter to the clip property. 
 
 ```cs
  var audioComponent = parentObj.GetComponent<AudioSource>();
@@ -86,7 +86,7 @@ if (context == null)
 }
 ```
 
-Then it retrieves an array of `OVRLipSyncContextMorphTarget` components. If there are no `OVRLipSyncContextMorphTarget` components found, it adds two new instances of `OVRLipSyncContextMorphTarget` to the object. It then sets properties like `blendshapeScale`, and assigns values to the `visemeToBlendTargets` arrays based on the `headBlendshapes` and `teethBlendshapes` arrays defined earlier in the code. These arrays contain indices of blendshapes for Head and Teeth skeletal meshes. They are the same we used for editor-time configuration.
+Then, it retrieves an array of `OVRLipSyncContextMorphTarget` components. If no `OVRLipSyncContextMorphTarget` components are found, two new instances of `OVRLipSyncContextMorphTarget` will be added to the object. It then sets properties like `blendshapeScale` and assigns values to the `visemeToBlendTargets` arrays based on the `headBlendshapes` and `teethBlendshapes` arrays defined earlier in the code. These arrays contain indices of blendshapes for Head and Teeth skeletal meshes. They are the same ones we used for editor-time configuration.
 
 ```cs
  if (contextMorphTargets.Count() == 0)
@@ -116,8 +116,8 @@ We provide references to the corresponding skeletal meshes to our O`VRLipSyncCon
 
 ## License
 
-This OVRLipSync plugin is the property of Oculus and is provided under the [Oculus SDK License](https://developer.oculus.com/licenses/audio-3.3/), which allows for personal and commercial use. By using this plugin, you agree to the terms of the Oculus SDK License.
+This OVRLipSync plugin is Oculus' property and is provided under the [Oculus SDK License](https://developer.oculus.com/licenses/audio-3.3/), which allows for personal and commercial use. By using this plugin, you agree to the terms of the Oculus SDK License.
 
 ## Support
 
-If you have any questions or issues with the sample, please contact us <support@avatarsdk.com>.
+If you have any questions or issues with the sample, don't hesitate to contact us at <support@avatarsdk.com>.
